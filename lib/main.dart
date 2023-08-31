@@ -1,3 +1,4 @@
+import 'package:dart_tiktok/screens/sing_up/sing_up_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,19 +11,10 @@ class TikTokApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TikTok Clone',
-      theme: ThemeData(
-        primaryColor: const Color(0xFFE9435A),
-      ),
-      home: Container(
-        child: const Row(
-          children: [
-            Text(
-              "hello",
-            ),
-          ],
+        title: 'TikTok Clone',
+        theme: ThemeData(
+          primaryColor: const Color(0xFFE9435A),
         ),
-      ),
-    );
+        home: const SignUpScreen());
   }
 }
