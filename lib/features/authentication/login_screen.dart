@@ -1,6 +1,8 @@
 import 'package:dart_tiktok/constants/gaps.dart';
 import 'package:dart_tiktok/constants/sizes.dart';
+import 'package:dart_tiktok/features/authentication/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -17,25 +19,35 @@ class LoginScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: Sizes.size40,
           ),
-          child: Column(children: [
-            Gaps.v80,
-            Text(
-              "Log in to TikTok",
-              style: TextStyle(
-                fontSize: Sizes.size28,
-                fontWeight: FontWeight.w700,
+          child: Column(
+            children: [
+              Gaps.v80,
+              Text(
+                "Log in to TikTok",
+                style: TextStyle(
+                  fontSize: Sizes.size28,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
-            Gaps.v20,
-            Text(
-              "Manage your account, check notifications, comment on videos, and more.",
-              style: TextStyle(
-                fontSize: Sizes.size16,
-                color: Colors.black45,
+              Gaps.v20,
+              Text(
+                "Manage your account, check notifications, comment on videos, and more.",
+                style: TextStyle(
+                  fontSize: Sizes.size16,
+                  color: Colors.black45,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            )
-          ]),
+              Gaps.v40,
+              AuthButton(
+                  icon: FaIcon(FontAwesomeIcons.user),
+                  text: "Use email & password"),
+              Gaps.v16,
+              AuthButton(
+                  icon: FaIcon(FontAwesomeIcons.apple),
+                  text: "Continue with Apple"),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(
