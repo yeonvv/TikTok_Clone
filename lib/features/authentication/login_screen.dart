@@ -2,8 +2,12 @@ import 'package:dart_tiktok/constants/gaps.dart';
 import 'package:dart_tiktok/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  void onSignUpTap(BuildContext context) {
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,7 @@ class SignUpScreen extends StatelessWidget {
           child: Column(children: [
             Gaps.v80,
             Text(
-              "Sign up for TikTok",
+              "Log in to TikTok",
               style: TextStyle(
                 fontSize: Sizes.size28,
                 fontWeight: FontWeight.w700,
@@ -24,7 +28,7 @@ class SignUpScreen extends StatelessWidget {
             ),
             Gaps.v20,
             Text(
-              "Create a profile, follow other accounts, make your own videos, and more.",
+              "Manage your account, check notifications, comment on videos, and more.",
               style: TextStyle(
                 fontSize: Sizes.size16,
                 color: Colors.black45,
@@ -46,18 +50,21 @@ class SignUpScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                "Already have an account?",
+                "Don't have an account?",
                 style: TextStyle(
                   fontSize: 16,
                 ),
               ),
               Gaps.h5,
-              Text(
-                "Log in",
-                style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
+              GestureDetector(
+                onTap: () => onSignUpTap(context),
+                child: Text(
+                  "Sign up",
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
               ),
             ],
           ),

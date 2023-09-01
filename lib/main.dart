@@ -1,4 +1,4 @@
-import 'package:dart_tiktok/screens/sing_up/sing_up_screen.dart';
+import 'package:dart_tiktok/features/authentication/sing_up_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
