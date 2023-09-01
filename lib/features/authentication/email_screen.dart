@@ -14,6 +14,9 @@ class EmailScreen extends StatefulWidget {
 class _EmailScreenState extends State<EmailScreen> {
   final TextEditingController _emailController = TextEditingController();
   String _email = "";
+  final _regExp = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+  );
 
   @override
   void initState() {
@@ -36,11 +39,8 @@ class _EmailScreenState extends State<EmailScreen> {
 
   String? _isEmailValid() {
     if (_email.isEmpty) return null;
-    final regExp = RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-    );
     // _email과 regExp에 맞지 않다면
-    if (!regExp.hasMatch(_email)) return "Email not valid";
+    if (!_regExp.hasMatch(_email)) return "Email not valid";
     return null;
   }
 
