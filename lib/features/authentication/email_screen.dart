@@ -1,17 +1,16 @@
 import 'package:dart_tiktok/constants/gaps.dart';
 import 'package:dart_tiktok/constants/sizes.dart';
-import 'package:dart_tiktok/features/authentication/email_screen.dart';
 import 'package:dart_tiktok/features/authentication/widgets/form_button.dart';
 import 'package:flutter/material.dart';
 
-class UsernameScreen extends StatefulWidget {
-  const UsernameScreen({super.key});
+class EmailScreen extends StatefulWidget {
+  const EmailScreen({super.key});
 
   @override
-  State<UsernameScreen> createState() => _UsernameScreenState();
+  State<EmailScreen> createState() => _EmailScreenState();
 }
 
-class _UsernameScreenState extends State<UsernameScreen> {
+class _EmailScreenState extends State<EmailScreen> {
   final TextEditingController _usernameController = TextEditingController();
   String _username = "";
 
@@ -34,17 +33,6 @@ class _UsernameScreenState extends State<UsernameScreen> {
     // _usernameController와 이와 관련된 이벤트 리스너들을 모두 지운다.
   }
 
-  void _onNextTap() {
-    // StateFulWidget안의 State안에 있다면 어디서든 context를 사용할 수 있다.
-    if (_username.isEmpty) return;
-    Navigator.of(context).push(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const EmailScreen(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,25 +47,17 @@ class _UsernameScreenState extends State<UsernameScreen> {
           children: [
             Gaps.v32,
             const Text(
-              "Create username",
+              "What is your email?",
               style: TextStyle(
                 fontSize: Sizes.size24,
                 fontWeight: FontWeight.w600,
-              ),
-            ),
-            Gaps.v10,
-            const Text(
-              "You can always change this later.",
-              style: TextStyle(
-                fontSize: Sizes.size16,
-                color: Colors.black54,
               ),
             ),
             Gaps.v16,
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(
-                hintText: "Username",
+                hintText: "Email",
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.black26,
@@ -92,11 +72,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
               cursorColor: Theme.of(context).primaryColor,
             ),
             Gaps.v16,
-            GestureDetector(
-              onTap: _onNextTap,
-              child:
-                  FormButton(disabled: _username.isEmpty), // String을 받을 필요가 없다.
-            ),
+            FormButton(disabled: _username.isEmpty), // String을 받을 필요가 없다.
           ],
         ),
       ),
