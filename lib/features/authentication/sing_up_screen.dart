@@ -1,6 +1,6 @@
 import 'package:dart_tiktok/constants/gaps.dart';
 import 'package:dart_tiktok/constants/sizes.dart';
-import 'package:dart_tiktok/features/authentication/email_screen.dart';
+import 'package:dart_tiktok/features/authentication/username_screen.dart';
 import 'package:dart_tiktok/features/authentication/login_screen.dart';
 import 'package:dart_tiktok/features/authentication/widgets/auth_button.dart';
 import 'package:flutter/material.dart';
