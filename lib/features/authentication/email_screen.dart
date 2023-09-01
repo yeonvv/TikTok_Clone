@@ -1,5 +1,6 @@
 import 'package:dart_tiktok/constants/gaps.dart';
 import 'package:dart_tiktok/constants/sizes.dart';
+import 'package:dart_tiktok/features/authentication/password_screen.dart';
 import 'package:dart_tiktok/features/authentication/widgets/form_button.dart';
 import 'package:flutter/material.dart';
 
@@ -11,16 +12,16 @@ class EmailScreen extends StatefulWidget {
 }
 
 class _EmailScreenState extends State<EmailScreen> {
-  final TextEditingController _usernameController = TextEditingController();
-  String _username = "";
+  final TextEditingController _emailController = TextEditingController();
+  String _email = "";
 
   @override
   void initState() {
     super.initState(); // 구조 중요. 해당 코드가 최상단
-    _usernameController.addListener(
+    _emailController.addListener(
       () {
         setState(() {
-          _username = _usernameController.text;
+          _email = _emailController.text;
         });
       },
     );
@@ -28,52 +29,90 @@ class _EmailScreenState extends State<EmailScreen> {
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _emailController.dispose();
     super.dispose(); // 구조 중요. 해당 코드가 최하단
-    // _usernameController와 이와 관련된 이벤트 리스너들을 모두 지운다.
+    // _emailController와 이와 관련된 이벤트 리스너들을 모두 지운다.
+  }
+
+  String? _isEmailValid() {
+    if (_email.isEmpty) return null;
+    final regExp = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+    );
+    // _email과 regExp에 맞지 않다면
+    if (!regExp.hasMatch(_email)) return "Email not valid";
+    return null;
+  }
+
+  void _onScaffoldTap() {
+    FocusScope.of(context).unfocus();
+  }
+
+  void _onSubmit() {
+    if (_email.isEmpty || _isEmailValid() != null) return;
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const PasswordScreen(),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Sign up"),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Sizes.size40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Gaps.v32,
-            const Text(
-              "What is your email?",
-              style: TextStyle(
-                fontSize: Sizes.size24,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Gaps.v16,
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                hintText: "Email",
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black26,
-                  ),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black26,
-                  ),
+    return GestureDetector(
+      onTap: _onScaffoldTap,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Sign up"),
+          centerTitle: true,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Sizes.size40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Gaps.v32,
+              const Text(
+                "What is your email?",
+                style: TextStyle(
+                  fontSize: Sizes.size24,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-              cursorColor: Theme.of(context).primaryColor,
-            ),
-            Gaps.v16,
-            FormButton(disabled: _username.isEmpty), // String을 받을 필요가 없다.
-          ],
+              Gaps.v16,
+              TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                autocorrect: false,
+                onEditingComplete: _onSubmit,
+                decoration: InputDecoration(
+                  hintText: "Email",
+                  errorText: _isEmailValid(),
+                  enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black26,
+                    ),
+                  ),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black26,
+                    ),
+                  ),
+                ),
+                cursorColor: Theme.of(context).primaryColor,
+              ),
+              Gaps.v16,
+              GestureDetector(
+                onTap: _onSubmit,
+                child: FormButton(
+                  disabled: _email.isEmpty || // String을 받을 필요가 없다.
+                      _isEmailValid() !=
+                          null, // 비어있거나 _isEmailValid가 "Email not valid" 를 언급하지 않을때, 정확한 email이 들어갔다면 isEmpty도 아니고 return값도 없다.
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
