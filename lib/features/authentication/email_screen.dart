@@ -109,6 +109,7 @@ class _EmailScreenState extends State<EmailScreen> {
                   disabled: _email.isEmpty || // String을 받을 필요가 없다.
                       _isEmailValid() !=
                           null, // 비어있거나 _isEmailValid가 "Email not valid" 를 언급하지 않을때, 정확한 email이 들어갔다면 isEmpty도 아니고 return값도 없다.
+                  text: "Next",
                 ),
               ),
             ],

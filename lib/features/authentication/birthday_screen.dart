@@ -1,7 +1,7 @@
 import 'package:dart_tiktok/constants/gaps.dart';
 import 'package:dart_tiktok/constants/sizes.dart';
-import 'package:dart_tiktok/features/authentication/email_screen.dart';
 import 'package:dart_tiktok/features/authentication/widgets/form_button.dart';
+import 'package:dart_tiktok/features/onboarding/interests_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
     Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const EmailScreen(),
+            const InterestsScreen(),
       ),
     );
   }
@@ -76,6 +76,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             TextField(
               enabled: false,
               controller: _birthdayController,
+              textAlign: TextAlign.center,
               decoration: const InputDecoration(
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -98,7 +99,10 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             Gaps.v16,
             GestureDetector(
               onTap: _onNextTap,
-              child: const FormButton(disabled: false),
+              child: const FormButton(
+                disabled: false,
+                text: "Next",
+              ),
             ),
           ],
         ),
