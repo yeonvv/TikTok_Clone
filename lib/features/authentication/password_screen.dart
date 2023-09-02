@@ -109,7 +109,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                           color: Colors.black54,
                         ),
                       ),
-                      Gaps.h20,
+                      _obscureText ? Gaps.h16 : Gaps.h14,
                       GestureDetector(
                         onTap: _toggleObscureTap,
                         child: FaIcon(
