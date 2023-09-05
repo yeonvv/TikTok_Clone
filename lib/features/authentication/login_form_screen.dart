@@ -16,15 +16,20 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
 
   Map<String, String> formData = {};
 
+// 1. GlobalKey를 사용하여 Form의 currentState 에 엑세스하여 validate를 호출하여
+  // 여러 TextField 위젯에 대한 유효성 검사를 한 번에 실행할 수 있다.
+// 2. currentState.validate() 는 모든 하위 TextFormField 위젯의 유효성 검사를 실행하고
+  // 모든 유효성 검사가 통과되면 true 를 반환한다.
   void _onSubmitTap() {
     if (_formKey.currentState != null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        Navigator.of(context).push(
+        Navigator.of(context).pushAndRemoveUntil(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
                 const InterestsScreen(),
           ),
+          (route) => false,
         );
       }
     }
@@ -67,12 +72,14 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   ),
                   cursorColor: Theme.of(context).primaryColor,
                   validator: (value) {
+                    //TextFormFiled에 입력한 텍스트 값
                     if (value != null && value.isEmpty) {
                       return "Plese write your email";
                     }
                     return null;
                   },
                   onSaved: (newValue) {
+                    // currentState.save() 에 저장된 순간의 값
                     if (newValue != null) {
                       formData["email"] = newValue;
                     }
@@ -96,6 +103,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   ),
                   cursorColor: Theme.of(context).primaryColor,
                   validator: (value) {
+                    // String? value 이기에 value != null 을 설정
                     if (value != null && value.isEmpty) {
                       return "Plase write your password";
                     }
@@ -103,6 +111,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   },
                   onSaved: (newValue) {
                     if (newValue != null) {
+                      // String? newValue 이기에 newValue != null 을 설정
                       formData["password"] = newValue;
                     }
                   },

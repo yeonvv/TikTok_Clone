@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class InterestsButton extends StatefulWidget {
   const InterestsButton({
     super.key,
-    required this.interst,
+    required this.interest,
   });
 
-  final String interst;
+  final String interest;
 
   @override
   State<InterestsButton> createState() => _InterestsButtonState();
@@ -17,9 +17,8 @@ class _InterestsButtonState extends State<InterestsButton> {
   bool _isSelected = false;
 
   void _onTap() {
-    setState(() {
-      _isSelected = !_isSelected;
-    });
+    _isSelected = !_isSelected;
+    setState(() {});
   }
 
   @override
@@ -52,7 +51,7 @@ class _InterestsButtonState extends State<InterestsButton> {
           ),
           duration: const Duration(milliseconds: 300),
           child: Text(
-            widget.interst,
+            widget.interest,
           ),
         ),
       ),

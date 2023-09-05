@@ -95,7 +95,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
             GestureDetector(
               onTap: _onNextTap,
               child: FormButton(
-                disabled: _username.isEmpty,
+                disabled: _username.length >= 2 ? false : true,
                 text: "Next",
               ), // String을 받을 필요가 없다.
             ),

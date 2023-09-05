@@ -37,25 +37,21 @@ class _EmailScreenState extends State<EmailScreen> {
     // _emailController와 이와 관련된 이벤트 리스너들을 모두 지운다.
   }
 
-  String? _isEmailValid() {
-    if (_email.isEmpty) return null;
-    // _email과 regExp에 맞지 않다면
-    if (!_regExp.hasMatch(_email)) return "Email not valid";
-    return null;
-  }
+  bool _isEmailValid() => _email.isNotEmpty && _regExp.hasMatch(_email);
 
   void _onScaffoldTap() {
     FocusScope.of(context).unfocus();
   }
 
   void _onSubmit() {
-    if (_email.isEmpty || _isEmailValid() != null) return;
-    Navigator.of(context).push(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const PasswordScreen(),
-      ),
-    );
+    if (_isEmailValid()) {
+      Navigator.of(context).push(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const PasswordScreen(),
+        ),
+      );
+    }
   }
 
   @override
@@ -88,7 +84,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 onEditingComplete: _onSubmit,
                 decoration: InputDecoration(
                   hintText: "Email",
-                  errorText: _isEmailValid(),
+                  errorText: _isEmailValid() ? null : "Email not valid",
                   enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.black26,
@@ -106,9 +102,7 @@ class _EmailScreenState extends State<EmailScreen> {
               GestureDetector(
                 onTap: _onSubmit,
                 child: FormButton(
-                  disabled: _email.isEmpty || // String을 받을 필요가 없다.
-                      _isEmailValid() !=
-                          null, // 비어있거나 _isEmailValid가 "Email not valid" 를 언급하지 않을때, 정확한 email이 들어갔다면 isEmpty도 아니고 return값도 없다.
+                  disabled: !_isEmailValid(),
                   text: "Next",
                 ),
               ),

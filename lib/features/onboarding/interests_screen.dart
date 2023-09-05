@@ -62,12 +62,13 @@ class _InterestsScreenState extends State<InterestsScreen> {
   }
 
   void _onNextTap() {
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             const TutorialScreen(),
       ),
+      (route) => false,
     );
   }
 
@@ -116,8 +117,8 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   spacing: 20,
                   runSpacing: 20,
                   children: [
-                    for (var interst in interests)
-                      InterestsButton(interst: interst),
+                    for (var interest in interests)
+                      InterestsButton(interest: interest),
                   ],
                 ),
               ],
@@ -145,7 +146,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      vertical: Sizes.size10,
+                      vertical: Sizes.size14,
                     ),
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -174,7 +175,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     onTap: _onNextTap,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                        vertical: Sizes.size10,
+                        vertical: Sizes.size14,
                       ),
                       decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,

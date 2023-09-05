@@ -38,24 +38,20 @@ class _PasswordScreenState extends State<PasswordScreen> {
     super.dispose();
   }
 
-  String? _isPasswordValid() {
-    if (_password.isEmpty) return null;
-    if (!_regExp.hasMatch(_password)) return "Password not valid";
-    return null;
-  }
+  bool _isPasswordValid() =>
+      _password.isNotEmpty && _regExp.hasMatch(_password);
 
-  void _onScaffoldTap() {
-    FocusScope.of(context).unfocus();
-  }
+  void _onScaffoldTap() => FocusScope.of(context).unfocus();
 
   void _onSubmit() {
-    if (_password.isEmpty || _isPasswordValid() != null) return;
-    Navigator.of(context).push(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const BirthdayScreen(),
-      ),
-    );
+    if (_isPasswordValid()) {
+      Navigator.of(context).push(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const BirthdayScreen(),
+        ),
+      );
+    }
   }
 
   void _onClearTap() {
@@ -97,7 +93,6 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 onEditingComplete: _onSubmit,
                 obscureText: _obscureText,
                 decoration: InputDecoration(
-                  errorText: _isPasswordValid(),
                   suffix: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -196,7 +191,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
               GestureDetector(
                 onTap: _onSubmit,
                 child: FormButton(
-                  disabled: _password.isEmpty || _isPasswordValid() != null,
+                  disabled: !_isPasswordValid(),
                   text: "Next",
                 ),
               ),

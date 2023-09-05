@@ -18,6 +18,11 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
     const Duration(days: 365 * 12),
   );
 
+  void _setTextFieldDate(DateTime initialDate) {
+    final textDate = initialDate.toString().split(" ").first;
+    _birthdayController.value = TextEditingValue(text: textDate);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -31,17 +36,13 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
   }
 
   void _onNextTap() {
-    Navigator.of(context).push(
+    Navigator.of(context).pushAndRemoveUntil(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             const InterestsScreen(),
       ),
+      (route) => false,
     );
-  }
-
-  void _setTextFieldDate(DateTime initialDate) {
-    final textDate = initialDate.toString().split(" ").first;
-    _birthdayController.value = TextEditingValue(text: textDate);
   }
 
   @override
