@@ -1,6 +1,6 @@
 import 'package:dart_tiktok/constants/gaps.dart';
 import 'package:dart_tiktok/constants/sizes.dart';
-import 'package:dart_tiktok/features/authentication/sing_up_screen.dart';
+import 'package:dart_tiktok/features/main_navigation/main_navigation_screen.dart';
 import 'package:flutter/material.dart';
 
 enum Direction { up, down }
@@ -40,7 +40,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
     Navigator.of(context).pushAndRemoveUntil(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const SignUpScreen(),
+            const MainNavigationScreen(),
       ),
       (route) => false,
     );
