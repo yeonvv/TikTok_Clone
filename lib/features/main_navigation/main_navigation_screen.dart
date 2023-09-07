@@ -1,6 +1,7 @@
 import 'package:dart_tiktok/constants/sizes.dart';
 import 'package:dart_tiktok/features/main_navigation/widget/nav_tab.dart';
 import 'package:dart_tiktok/features/main_navigation/widget/post_video_button.dart';
+import 'package:dart_tiktok/features/videos/video_timeline_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -67,14 +68,36 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens.elementAt(_selectedIndex),
+      body: Stack(
+        children: [
+          Offstage(
+            offstage: _selectedIndex != 0,
+            child: const VideoTimelineScreen(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 1,
+            child: Container(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 2,
+            child: Container(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 3,
+            child: Container(),
+          ),
+          Offstage(
+            offstage: _selectedIndex != 4,
+            child: Container(),
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               NavigationTap(
                 icon: FontAwesomeIcons.house,
