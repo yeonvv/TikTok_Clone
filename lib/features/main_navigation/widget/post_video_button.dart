@@ -15,47 +15,46 @@ class VideoNavButton extends StatefulWidget {
 
 class _VideoNavButtonState extends State<VideoNavButton>
     with SingleTickerProviderStateMixin {
-  late double _scale;
-  late AnimationController _controller;
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(
-        milliseconds: 300,
-      ),
-      lowerBound: 0.0,
-      upperBound: 0.2,
-    )..addListener(() {
+    _animationController = AnimationController(
+        vsync: this,
+        duration: const Duration(
+          milliseconds: 300,
+        ),
+        lowerBound: 1.0,
+        upperBound: 1.2,
+        value: 1.0)
+      ..addListener(() {
         setState(() {});
       });
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   void _tapDown(TapDownDetails details) {
-    _controller.forward();
+    _animationController.forward();
   }
 
   void _tapUp(TapUpDetails details) {
-    _controller.reverse();
+    _animationController.reverse();
     widget.onTap();
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    _scale = 1 + _controller.value;
     return GestureDetector(
       onTapDown: _tapDown,
       onTapUp: _tapUp,
       child: Transform.scale(
-        scale: _scale,
+        scale: _animationController.value,
         child: Stack(
           clipBehavior: Clip.none,
           children: [
