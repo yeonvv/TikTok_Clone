@@ -1,5 +1,6 @@
 import 'package:dart_tiktok/constants/gaps.dart';
 import 'package:dart_tiktok/constants/sizes.dart';
+import 'package:dart_tiktok/features/videos/widgets/video_edge_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:video_player/video_player.dart';
@@ -220,6 +221,36 @@ class _VideoPostState extends State<VideoPost>
                             ],
                           ),
                     Gaps.v10,
+                  ],
+                ),
+              ),
+              const Positioned(
+                bottom: 70,
+                right: 10,
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 25,
+                      foregroundImage: NetworkImage(
+                        "https://avatars.githubusercontent.com/u/3612017?v=4",
+                      ),
+                      foregroundColor: Colors.white,
+                    ),
+                    Gaps.v24,
+                    VideoEdgeButton(
+                      icon: FontAwesomeIcons.solidHeart,
+                      text: "2.9M",
+                    ),
+                    Gaps.v24,
+                    VideoEdgeButton(
+                      icon: FontAwesomeIcons.solidCommentDots,
+                      text: "33.0K",
+                    ),
+                    Gaps.v24,
+                    VideoEdgeButton(
+                      icon: FontAwesomeIcons.share,
+                      text: "Share",
+                    ),
                   ],
                 ),
               ),
