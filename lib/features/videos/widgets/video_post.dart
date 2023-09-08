@@ -54,9 +54,7 @@ class _VideoPostState extends State<VideoPost>
       lowerBound: 1.0,
       upperBound: 1.5,
       value: 1.5,
-    )..addListener(() {
-        setState(() {});
-      });
+    );
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
@@ -107,8 +105,15 @@ class _VideoPostState extends State<VideoPost>
           Positioned.fill(
             child: Center(
               child: IgnorePointer(
-                child: Transform.scale(
-                  scale: _animationController.value,
+                child: AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    // controller의 값이 변할 때마다 실행된다.
+                    return Transform.scale(
+                      scale: _animationController.value,
+                      child: child,
+                    );
+                  },
                   child: AnimatedOpacity(
                     duration: _animationDuration,
                     opacity: _isPaused ? 1 : 0,

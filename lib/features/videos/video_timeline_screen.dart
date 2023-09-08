@@ -1,4 +1,3 @@
-import 'package:dart_tiktok/constants/sizes.dart';
 import 'package:dart_tiktok/features/videos/widgets/video_post.dart';
 import 'package:flutter/material.dart';
 
