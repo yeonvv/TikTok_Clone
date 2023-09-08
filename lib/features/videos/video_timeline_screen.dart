@@ -29,6 +29,7 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
   }
 
   void _onVideoFinished() {
+    return;
     _pageController.nextPage(
       duration: _scrollDuration,
       curve: _scrollCurve,
@@ -50,8 +51,12 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
       scrollDirection: Axis.vertical,
       itemCount: _itemCount,
       onPageChanged: _onPageChanged,
-      itemBuilder: (context, index) =>
-          VideoPost(onVideoFinished: _onVideoFinished, index: index),
+      itemBuilder: (context, index) => VideoPost(
+        onVideoFinished: _onVideoFinished,
+        index: index,
+        description:
+            "This is my house in Thailand!!!asdansiuashudhaoidnoiasndjknaksjdnasidjaifnkjabfkjbakfnmsnkjfskfnhsdbfnslkd fsbdbnajnsldkalksnfkjab sdnoiaksnjkd ajksb dasbjkbnkfmafnamldnasjdjabsudnmalsnjnhn",
+      ),
     );
   }
 }

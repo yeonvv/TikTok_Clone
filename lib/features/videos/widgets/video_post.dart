@@ -1,3 +1,4 @@
+import 'package:dart_tiktok/constants/gaps.dart';
 import 'package:dart_tiktok/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,12 +7,14 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
-
   final int index;
+  final String description;
+
   const VideoPost({
     super.key,
     required this.onVideoFinished,
     required this.index,
+    required this.description,
   });
 
   @override
@@ -24,6 +27,7 @@ class _VideoPostState extends State<VideoPost>
       VideoPlayerController.asset("assets/videos/video.mp4");
 
   bool _isPaused = false;
+  bool _isShowDesc = false;
 
   late AnimationController _animationController;
 
@@ -40,6 +44,7 @@ class _VideoPostState extends State<VideoPost>
 
   void _initVideo() async {
     await _videoPlayerController.initialize();
+    await _videoPlayerController.setLooping(true);
     setState(() {});
     _videoPlayerController.addListener(_onVideoFinished);
   }
@@ -83,51 +88,144 @@ class _VideoPostState extends State<VideoPost>
     super.dispose();
   }
 
+  void _onShowDesc() {
+    setState(() {
+      _isShowDesc = !_isShowDesc;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    double screenWith = screenSize.width;
+    Orientation currentOrientation = Orientation.portrait;
+
     return VisibilityDetector(
       key: Key("${widget.index}"),
       onVisibilityChanged: _onVisibilityChanged,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: _videoPlayerController.value.isInitialized
-                ? VideoPlayer(_videoPlayerController)
-                : Container(
-                    color: Colors.black,
-                  ),
-          ),
-          Positioned.fill(
-            child: GestureDetector(
-              onTap: _onTogglePause,
-            ),
-          ),
-          Positioned.fill(
-            child: Center(
-              child: IgnorePointer(
-                child: AnimatedBuilder(
-                  animation: _animationController,
-                  builder: (context, child) {
-                    // controller의 값이 변할 때마다 실행된다.
-                    return Transform.scale(
-                      scale: _animationController.value,
-                      child: child,
-                    );
-                  },
-                  child: AnimatedOpacity(
-                    duration: _animationDuration,
-                    opacity: _isPaused ? 1 : 0,
-                    child: const FaIcon(
-                      FontAwesomeIcons.play,
-                      size: Sizes.size52,
-                      color: Colors.white,
+      child: OrientationBuilder(
+        builder: (context, orientation) {
+          currentOrientation = orientation;
+          return Stack(
+            children: [
+              Positioned.fill(
+                child: _videoPlayerController.value.isInitialized
+                    ? VideoPlayer(_videoPlayerController)
+                    : Container(
+                        color: Colors.black,
+                      ),
+              ),
+              Positioned.fill(
+                child: GestureDetector(
+                  onTap: _onTogglePause,
+                ),
+              ),
+              Positioned.fill(
+                child: Center(
+                  child: IgnorePointer(
+                    child: AnimatedBuilder(
+                      animation: _animationController,
+                      builder: (context, child) {
+                        // controller의 값이 변할 때마다 실행된다.
+                        return Transform.scale(
+                          scale: _animationController.value,
+                          child: child,
+                        );
+                      },
+                      child: AnimatedOpacity(
+                        duration: _animationDuration,
+                        opacity: _isPaused ? 1 : 0,
+                        child: const FaIcon(
+                          FontAwesomeIcons.play,
+                          size: Sizes.size52,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          )
-        ],
+              Positioned(
+                bottom: currentOrientation == Orientation.portrait
+                    ? screenWith * 0.04
+                    : screenWith * 0.02,
+                left: currentOrientation == Orientation.portrait
+                    ? screenWith * 0.04
+                    : screenWith * 0.02,
+                width: currentOrientation == Orientation.portrait
+                    ? screenWith * 0.44
+                    : screenWith * 0.44,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "@YJJ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: currentOrientation == Orientation.portrait
+                            ? screenWith * 0.035
+                            : screenWith * 0.02,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Gaps.v10,
+                    _isShowDesc
+                        ? GestureDetector(
+                            onTap: _onShowDesc,
+                            child: SizedBox(
+                              child: Text(
+                                widget.description,
+                                style: TextStyle(
+                                  fontSize:
+                                      currentOrientation == Orientation.portrait
+                                          ? screenWith * 0.035
+                                          : screenWith * 0.025,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                            ),
+                          )
+                        : Row(
+                            children: [
+                              SizedBox(
+                                width:
+                                    currentOrientation == Orientation.portrait
+                                        ? screenWith * 0.29
+                                        : screenWith * 0.33,
+                                child: Text(
+                                  widget.description,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: currentOrientation ==
+                                            Orientation.portrait
+                                        ? screenWith * 0.035
+                                        : screenWith * 0.025,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: _onShowDesc,
+                                child: Text(
+                                  "See more",
+                                  style: TextStyle(
+                                    fontSize: currentOrientation ==
+                                            Orientation.portrait
+                                        ? screenWith * 0.035
+                                        : screenWith * 0.025,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                    Gaps.v10,
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
