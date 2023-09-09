@@ -7,13 +7,11 @@ import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class VideoPost extends StatefulWidget {
-  final Function onVideoFinished;
   final int index;
   final String description;
 
   const VideoPost({
     super.key,
-    required this.onVideoFinished,
     required this.index,
     required this.description,
   });
@@ -37,9 +35,7 @@ class _VideoPostState extends State<VideoPost>
   void _onVideoFinished() {
     if (_videoPlayerController.value.isInitialized) {
       if (_videoPlayerController.value.duration ==
-          _videoPlayerController.value.position) {
-        widget.onVideoFinished();
-      }
+          _videoPlayerController.value.position) return;
     }
   }
 

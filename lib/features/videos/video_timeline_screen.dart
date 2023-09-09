@@ -28,34 +28,37 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
     }
   }
 
-  void _onVideoFinished() {
-    return;
-    _pageController.nextPage(
-      duration: _scrollDuration,
-      curve: _scrollCurve,
-    );
-  }
-
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
 
+  Future<void> _onRefresh() {
+    return Future.delayed(
+      const Duration(seconds: 3),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // MainNavigationScreen의 Scaffold안에서 렌더링되고, Appbar가 없기 때문에 Scaffold를 사용할 이유가 없다.
-    return PageView.builder(
-      controller: _pageController,
-      pageSnapping: true,
-      scrollDirection: Axis.vertical,
-      itemCount: _itemCount,
-      onPageChanged: _onPageChanged,
-      itemBuilder: (context, index) => VideoPost(
-        onVideoFinished: _onVideoFinished,
-        index: index,
-        description:
-            "This is my house in Thailand!!!asdansiuashudhaoidnoiasndjknaksjdnasidjaifnkjabfkjbakfnmsnkjfskfnhsdbfnslkd fsbdbnajnsldkalksnfkjab sdnoiaksnjkd ajksb dasbjkbnkfmafnamldnasjdjabsudnmalsnjnhn",
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      displacement: 60,
+      edgeOffset: 20.0,
+      color: Theme.of(context).primaryColor,
+      child: PageView.builder(
+        controller: _pageController,
+        pageSnapping: true,
+        scrollDirection: Axis.vertical,
+        itemCount: _itemCount,
+        onPageChanged: _onPageChanged,
+        itemBuilder: (context, index) => VideoPost(
+          index: index,
+          description:
+              "This is my house in Thailand!!!asdansiuashudhaoidnoiasndjknaksjdnasidjaifnkjabfkjbakfnmsnkjfskfnhsdbfnslkd fsbdbnajnsldkalksnfkjab sdnoiaksnjkd ajksb dasbjkbnkfmafnamldnasjdjabsudnmalsnjnhn",
+        ),
       ),
     );
   }
