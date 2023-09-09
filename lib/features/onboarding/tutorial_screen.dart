@@ -19,20 +19,16 @@ class _TutorialScreenState extends State<TutorialScreen> {
   Page _page = Page.first;
 
   void _onPanUpdate(DragUpdateDetails details) {
-    if (details.delta.dy > 0) {
+    if (details.delta.dy > 0 && details.delta.dy < 1) {
       _direction = Direction.up;
-    } else {
+    } else if (details.delta.dy < 0 && details.delta.dy > -1) {
       _direction = Direction.down;
     }
     setState(() {});
   }
 
   void _onPanEnd(DragEndDetails details) {
-    if (_direction == Direction.up) {
-      _page = Page.first;
-    } else {
-      _page = Page.second;
-    }
+    _direction == Direction.up ? _page = Page.first : _page = Page.second;
     setState(() {});
   }
 
@@ -72,43 +68,45 @@ class _TutorialScreenState extends State<TutorialScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: _page == Page.first
-            ? null
-            : BottomAppBar(
-                elevation: 0,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: Sizes.size20,
-                    bottom: Sizes.size40,
-                    right: Sizes.size32,
-                    left: Sizes.size32,
+        bottomNavigationBar: BottomAppBar(
+          elevation: 0,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: Sizes.size20,
+              bottom: Sizes.size40,
+              right: Sizes.size32,
+              left: Sizes.size32,
+            ),
+            child: GestureDetector(
+              onTap: _page == Page.first ? null : _enterAppTap,
+              child: AnimatedOpacity(
+                opacity: _page == Page.first ? 0 : 1,
+                duration: const Duration(milliseconds: 300),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Sizes.size10,
                   ),
-                  child: GestureDetector(
-                    onTap: _enterAppTap,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: Sizes.size10,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        border: Border.all(
-                          color: Colors.black26,
-                        ),
-                        borderRadius: BorderRadius.circular(Sizes.size3),
-                      ),
-                      child: const Text(
-                        "Enter the app!",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: Sizes.size20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    border: Border.all(
+                      color: Colors.black26,
+                    ),
+                    borderRadius: BorderRadius.circular(Sizes.size3),
+                  ),
+                  child: const Text(
+                    "Enter the app!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: Sizes.size20,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ),
+            ),
+          ),
+        ),
       ),
       // length: 3,
       // child: Scaffold(
@@ -232,6 +230,7 @@ class FadePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
+      // 감싸는 이유는 Text 박스가 끝까지 채워져 있지 않아 다른 페이지가의 Text가 순간적으로 개행되는 것을 막기 위해
       widthFactor: 1,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

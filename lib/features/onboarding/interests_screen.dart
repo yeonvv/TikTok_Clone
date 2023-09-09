@@ -128,9 +128,10 @@ class _InterestsScreenState extends State<InterestsScreen> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-            border: Border.all(
-          color: Colors.black12,
-        )),
+          border: Border.all(
+            color: Colors.black12,
+          ),
+        ),
         child: BottomAppBar(
           elevation: 3,
           child: Padding(
