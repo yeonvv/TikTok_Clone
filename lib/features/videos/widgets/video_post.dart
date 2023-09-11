@@ -1,5 +1,6 @@
 import 'package:dart_tiktok/constants/gaps.dart';
 import 'package:dart_tiktok/constants/sizes.dart';
+import 'package:dart_tiktok/features/videos/widgets/video_comments.dart';
 import 'package:dart_tiktok/features/videos/widgets/video_edge_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -90,6 +91,33 @@ class _VideoPostState extends State<VideoPost>
     setState(() {
       _isShowDesc = !_isShowDesc;
     });
+  }
+
+  void _onCommentsTap() async {
+    if (_videoPlayerController.value.isPlaying) {
+      _onTogglePause();
+    }
+    await showModalBottomSheet(
+      // 닫힐 때 resolve 된다.
+      context: context,
+      builder: (context) {
+        return Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(Sizes.size20),
+            ),
+          ),
+          child: const VideoComments(),
+        );
+      },
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(Sizes.size20),
+        ),
+      ),
+    );
+    _onTogglePause();
   }
 
   @override
@@ -221,27 +249,30 @@ class _VideoPostState extends State<VideoPost>
                   ],
                 ),
               ),
-              const Positioned(
+              Positioned(
                 bottom: 70,
                 right: 10,
                 child: Column(
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 25,
                       foregroundImage: NetworkImage(
                         "https://avatars.githubusercontent.com/u/3612017?v=4",
                       ),
                       foregroundColor: Colors.white,
                     ),
-                    VideoEdgeButton(
+                    const VideoEdgeButton(
                       icon: FontAwesomeIcons.solidHeart,
                       text: "2.9M",
                     ),
-                    VideoEdgeButton(
-                      icon: FontAwesomeIcons.solidCommentDots,
-                      text: "33.0K",
+                    GestureDetector(
+                      onTap: _onCommentsTap,
+                      child: const VideoEdgeButton(
+                        icon: FontAwesomeIcons.solidCommentDots,
+                        text: "33.0K",
+                      ),
                     ),
-                    VideoEdgeButton(
+                    const VideoEdgeButton(
                       icon: FontAwesomeIcons.share,
                       text: "Share",
                     ),
