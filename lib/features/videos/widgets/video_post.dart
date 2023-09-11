@@ -22,28 +22,29 @@ class VideoPost extends StatefulWidget {
 
 class _VideoPostState extends State<VideoPost>
     with SingleTickerProviderStateMixin {
-  final VideoPlayerController _videoPlayerController =
-      VideoPlayerController.asset("assets/videos/video.mp4");
+  late final VideoPlayerController _videoPlayerController;
 
   bool _isPaused = false;
   bool _isShowDesc = false;
 
-  late AnimationController _animationController;
+  late final AnimationController _animationController;
 
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
-  void _onVideoFinished() {
-    if (_videoPlayerController.value.isInitialized) {
-      if (_videoPlayerController.value.duration ==
-          _videoPlayerController.value.position) return;
-    }
-  }
+  // void _onVideoFinished() {
+  //   if (_videoPlayerController.value.isInitialized) {
+  //     if (_videoPlayerController.value.duration ==
+  //         _videoPlayerController.value.position)
+  //   }
+  // }
 
   void _initVideo() async {
+    _videoPlayerController =
+        VideoPlayerController.asset("assets/videos/video.mp4");
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
     setState(() {});
-    _videoPlayerController.addListener(_onVideoFinished);
+    // _videoPlayerController.addListener(_onVideoFinished);
   }
 
   @override
@@ -68,13 +69,11 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onTogglePause() {
-    if (_videoPlayerController.value.isPlaying) {
-      _videoPlayerController.pause();
-      _animationController.reverse(); // upperBound를 lowerBound로 애니메이션
-    } else {
-      _videoPlayerController.play();
-      _animationController.forward(); // lowerBound를 upperBound 애니메이션
-    }
+    // reverse : upperBound를 lowerBound로 애니메이션
+    // forward : lowerBound를 upperBound 애니메이션
+    _videoPlayerController.value.isPlaying
+        ? (_videoPlayerController.pause(), _animationController.reverse())
+        : (_videoPlayerController.play(), _animationController.forward());
     setState(() {
       _isPaused = !_isPaused;
     });
@@ -120,8 +119,8 @@ class _VideoPostState extends State<VideoPost>
                 ),
               ),
               Positioned.fill(
-                child: Center(
-                  child: IgnorePointer(
+                child: IgnorePointer(
+                  child: Center(
                     child: AnimatedBuilder(
                       animation: _animationController,
                       builder: (context, child) {
@@ -190,7 +189,7 @@ class _VideoPostState extends State<VideoPost>
                                 width:
                                     currentOrientation == Orientation.portrait
                                         ? screenWith * 0.29
-                                        : screenWith * 0.33,
+                                        : screenWith * 0.29,
                                 child: Text(
                                   widget.description,
                                   overflow: TextOverflow.ellipsis,
@@ -234,17 +233,14 @@ class _VideoPostState extends State<VideoPost>
                       ),
                       foregroundColor: Colors.white,
                     ),
-                    Gaps.v24,
                     VideoEdgeButton(
                       icon: FontAwesomeIcons.solidHeart,
                       text: "2.9M",
                     ),
-                    Gaps.v24,
                     VideoEdgeButton(
                       icon: FontAwesomeIcons.solidCommentDots,
                       text: "33.0K",
                     ),
-                    Gaps.v24,
                     VideoEdgeButton(
                       icon: FontAwesomeIcons.share,
                       text: "Share",

@@ -21,16 +21,14 @@ class _VideoNavButtonState extends State<VideoNavButton>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-        vsync: this,
-        duration: const Duration(
-          milliseconds: 300,
-        ),
-        lowerBound: 1.0,
-        upperBound: 1.2,
-        value: 1.0)
-      ..addListener(() {
-        setState(() {});
-      });
+      vsync: this,
+      duration: const Duration(
+        milliseconds: 100,
+      ),
+      lowerBound: 1.0,
+      upperBound: 1.2,
+      value: 1.0,
+    );
   }
 
   void _tapDown(TapDownDetails details) {
@@ -53,51 +51,60 @@ class _VideoNavButtonState extends State<VideoNavButton>
     return GestureDetector(
       onTapDown: _tapDown,
       onTapUp: _tapUp,
-      child: Transform.scale(
-        scale: _animationController.value,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Positioned(
-              right: Sizes.size6,
-              child: Container(
-                width: Sizes.size48,
-                height: Sizes.size40,
-                decoration: BoxDecoration(
-                  color: const Color(0xff61D4F0),
-                  borderRadius: BorderRadius.circular(Sizes.size10),
-                ),
-              ),
-            ),
-            Positioned(
-              left: Sizes.size6,
-              child: Container(
-                width: Sizes.size48,
-                height: Sizes.size40,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(Sizes.size10),
-                ),
-              ),
-            ),
-            Container(
-              width: Sizes.size48,
-              height: Sizes.size40,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(Sizes.size10),
-              ),
-              child: const Center(
-                child: Text(
-                  "+",
-                  style: TextStyle(
-                    fontSize: Sizes.size32,
-                    fontWeight: FontWeight.w600,
+      child: AnimatedBuilder(
+        animation: _animationController,
+        builder: (context, child) {
+          return Transform.scale(
+            scale: _animationController.value,
+            child: child,
+          );
+        },
+        child: Center(
+          heightFactor: 1,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Positioned(
+                right: Sizes.size28 + Sizes.size2,
+                child: Container(
+                  width: Sizes.size20,
+                  height: Sizes.size36,
+                  decoration: BoxDecoration(
+                    color: const Color(0xff61D4F0),
+                    borderRadius: BorderRadius.circular(Sizes.size10),
                   ),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                left: Sizes.size28 + Sizes.size2,
+                child: Container(
+                  width: Sizes.size20,
+                  height: Sizes.size36,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(Sizes.size10),
+                  ),
+                ),
+              ),
+              Container(
+                width: Sizes.size44,
+                height: Sizes.size36,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(Sizes.size10),
+                ),
+                child: const Center(
+                  child: Text(
+                    "+",
+                    style: TextStyle(
+                      fontSize: Sizes.size28,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

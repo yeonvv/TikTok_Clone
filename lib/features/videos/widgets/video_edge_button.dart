@@ -14,22 +14,27 @@ class VideoEdgeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        FaIcon(
-          icon,
-          color: Colors.white,
-          size: Sizes.size32,
-        ),
-        Gaps.v5,
-        Text(
-          text,
-          style: const TextStyle(
+    return Container(
+      padding: const EdgeInsets.only(
+        top: Sizes.size24,
+      ),
+      child: Column(
+        children: [
+          FaIcon(
+            icon,
             color: Colors.white,
-            fontWeight: FontWeight.bold,
+            size: Sizes.size28,
           ),
-        ),
-      ],
+          Gaps.v3,
+          Text(
+            text,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

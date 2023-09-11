@@ -32,7 +32,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
     setState(() {});
   }
 
-  void _enterAppTap() {
+  void _onEnterAppTap() {
     Navigator.of(context).pushAndRemoveUntil(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -78,7 +78,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
               left: Sizes.size32,
             ),
             child: GestureDetector(
-              onTap: _page == Page.first ? null : _enterAppTap,
+              onTap: _page == Page.first ? null : _onEnterAppTap,
               child: AnimatedOpacity(
                 opacity: _page == Page.first ? 0 : 1,
                 duration: const Duration(milliseconds: 300),

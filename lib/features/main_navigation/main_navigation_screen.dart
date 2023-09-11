@@ -15,40 +15,40 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _selectedIndex = 0;
 
-  final screens = [
-    const Center(
-      child: Text(
-        "Home",
-        style: TextStyle(fontSize: Sizes.size48),
-      ),
-    ),
-    const Center(
-      child: Text(
-        "Search",
-        style: TextStyle(fontSize: Sizes.size48),
-      ),
-    ),
-    Container(
-      child: const Center(
-        child: Text(
-          "Create",
-          style: TextStyle(fontSize: Sizes.size48),
-        ),
-      ),
-    ),
-    const Center(
-      child: Text(
-        "Inbox",
-        style: TextStyle(fontSize: Sizes.size48),
-      ),
-    ),
-    const Center(
-      child: Text(
-        "Profile",
-        style: TextStyle(fontSize: Sizes.size48),
-      ),
-    ),
-  ];
+  // final screens = [
+  //   const Center(
+  //     child: Text(
+  //       "Home",
+  //       style: TextStyle(fontSize: Sizes.size48),
+  //     ),
+  //   ),
+  //   const Center(
+  //     child: Text(
+  //       "Search",
+  //       style: TextStyle(fontSize: Sizes.size48),
+  //     ),
+  //   ),
+  //   Container(
+  //     child: const Center(
+  //       child: Text(
+  //         "Create",
+  //         style: TextStyle(fontSize: Sizes.size48),
+  //       ),
+  //     ),
+  //   ),
+  //   const Center(
+  //     child: Text(
+  //       "Inbox",
+  //       style: TextStyle(fontSize: Sizes.size48),
+  //     ),
+  //   ),
+  //   const Center(
+  //     child: Text(
+  //       "Profile",
+  //       style: TextStyle(fontSize: Sizes.size48),
+  //     ),
+  //   ),
+  // ];
 
   void _onTap(int index) {
     setState(() {
@@ -59,7 +59,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   void _onPostVideoButtonTab() {
     Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => Container(),
+        pageBuilder: (context, animation, secondaryAnimation) => Scaffold(
+          appBar: AppBar(
+            title: const Text("Record video"),
+          ),
+        ),
         fullscreenDialog: true,
       ),
     );
@@ -68,7 +72,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _selectedIndex == 0 ? Colors.black : Colors.white,
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
           Offstage(
@@ -77,7 +81,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 1,
-            child: Container(),
+            child: const Center(
+              child: Text(
+                "Discover",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
           Offstage(
             offstage: _selectedIndex != 2,
@@ -85,11 +96,25 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 3,
-            child: Container(),
+            child: const Center(
+              child: Text(
+                "Inbox",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
           Offstage(
             offstage: _selectedIndex != 4,
-            child: Container(),
+            child: const Center(
+              child: Text(
+                "Profile",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -98,7 +123,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               NavigationTap(
                 icon: FontAwesomeIcons.house,
@@ -116,12 +142,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               ),
               Expanded(
                 child: GestureDetector(
-                  child: Center(
-                    heightFactor: 1,
-                    widthFactor: 1,
-                    child: VideoNavButton(
-                      onTap: _onPostVideoButtonTab,
-                    ),
+                  child: VideoNavButton(
+                    onTap: _onPostVideoButtonTab,
                   ),
                 ),
               ),
