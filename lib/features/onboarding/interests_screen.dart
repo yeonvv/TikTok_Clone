@@ -133,7 +133,6 @@ class _InterestsScreenState extends State<InterestsScreen> {
           ),
         ),
         child: BottomAppBar(
-          elevation: 3,
           child: Padding(
             padding: const EdgeInsets.only(
               top: Sizes.size20,

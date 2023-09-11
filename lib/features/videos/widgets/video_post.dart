@@ -100,22 +100,13 @@ class _VideoPostState extends State<VideoPost>
     await showModalBottomSheet(
       // 닫힐 때 resolve 된다.
       context: context,
-      builder: (context) {
-        return Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(Sizes.size20),
-            ),
-          ),
-          child: const VideoComments(),
-        );
-      },
+      builder: (context) => const VideoComments(),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(Sizes.size20),
         ),
       ),
+      isScrollControlled: true,
     );
     _onTogglePause();
   }
