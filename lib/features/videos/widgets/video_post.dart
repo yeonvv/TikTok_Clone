@@ -67,9 +67,13 @@ class _VideoPostState extends State<VideoPost>
         !_videoPlayerController.value.isPlaying) {
       _videoPlayerController.play();
     }
+    if (info.visibleFraction == 0 && _videoPlayerController.value.isPlaying) {
+      _onTogglePause();
+    }
   }
 
   void _onTogglePause() {
+    if (!mounted) return;
     // reverse : upperBound를 lowerBound로 애니메이션
     // forward : lowerBound를 upperBound 애니메이션
     _videoPlayerController.value.isPlaying

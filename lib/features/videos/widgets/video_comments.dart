@@ -61,56 +61,60 @@ class _VideoCommentsState extends State<VideoComments> {
           ),
           body: Stack(
             children: [
-              ListView.separated(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Sizes.size16,
-                  vertical: Sizes.size20,
-                ),
-                itemCount: 10,
-                separatorBuilder: (context, index) => Gaps.v20,
-                itemBuilder: (context, index) => const Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: Sizes.size20,
-                    ),
-                    Gaps.h10,
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "username",
-                            style: TextStyle(
-                              color: Colors.black45,
-                              fontSize: Sizes.size16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Gaps.v3,
-                          Text(
-                              "maksnbfakskj aisnfna aisnfnak  asbasdasdas asdasd as a sd asd"),
-                        ],
+              Scrollbar(
+                child: ListView.separated(
+                  padding: const EdgeInsets.only(
+                    right: Sizes.size16,
+                    left: Sizes.size16,
+                    top: Sizes.size10,
+                    bottom: Sizes.size96,
+                  ),
+                  itemCount: 10,
+                  separatorBuilder: (context, index) => Gaps.v20,
+                  itemBuilder: (context, index) => const Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: Sizes.size20,
                       ),
-                    ),
-                    Gaps.h20,
-                    Column(
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.heart,
-                          size: Sizes.size20,
-                          color: Colors.black54,
+                      Gaps.h10,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "username",
+                              style: TextStyle(
+                                color: Colors.black45,
+                                fontSize: Sizes.size16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Gaps.v3,
+                            Text(
+                                "maksnbfakskj aisnfna aisnfnak  asbasdasdas asdasd as a sd asd"),
+                          ],
                         ),
-                        Gaps.v1,
-                        Text(
-                          "52.2k",
-                          style: TextStyle(
+                      ),
+                      Gaps.h20,
+                      Column(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.heart,
+                            size: Sizes.size20,
                             color: Colors.black54,
                           ),
-                        ),
-                      ],
-                    )
-                  ],
+                          Gaps.v1,
+                          Text(
+                            "52.2k",
+                            style: TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
               Positioned(
