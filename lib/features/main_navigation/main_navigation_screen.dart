@@ -1,4 +1,5 @@
 import 'package:dart_tiktok/constants/sizes.dart';
+import 'package:dart_tiktok/features/discover/discover_screen.dart';
 import 'package:dart_tiktok/features/main_navigation/widget/nav_tab.dart';
 import 'package:dart_tiktok/features/main_navigation/widget/post_video_button.dart';
 import 'package:dart_tiktok/features/videos/video_timeline_screen.dart';
@@ -13,7 +14,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   // final screens = [
   //   const Center(
@@ -82,14 +83,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 1,
-            child: const Center(
-              child: Text(
-                "Discover",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            child: const DiscoverScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 2,
