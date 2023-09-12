@@ -120,7 +120,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
+        color: _selectedIndex == 0 ? Colors.black : Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
           child: Row(
@@ -133,6 +133,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 isSelected: _selectedIndex == 0,
                 label: "Home",
                 onTap: () => _onTap(0),
+                selectedIndex: _selectedIndex,
               ),
               NavigationTap(
                 icon: FontAwesomeIcons.compass,
@@ -140,11 +141,13 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 isSelected: _selectedIndex == 1,
                 label: "Discover",
                 onTap: () => _onTap(1),
+                selectedIndex: _selectedIndex,
               ),
               Expanded(
                 child: GestureDetector(
                   child: VideoNavButton(
                     onTap: _onPostVideoButtonTab,
+                    inverted: _selectedIndex != 0,
                   ),
                 ),
               ),
@@ -154,6 +157,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 isSelected: _selectedIndex == 3,
                 label: "Inbox",
                 onTap: () => _onTap(3),
+                selectedIndex: _selectedIndex,
               ),
               NavigationTap(
                 icon: FontAwesomeIcons.user,
@@ -161,6 +165,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 isSelected: _selectedIndex == 4,
                 label: "Profile",
                 onTap: () => _onTap(4),
+                selectedIndex: _selectedIndex,
               ),
             ],
           ),

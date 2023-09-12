@@ -25,6 +25,7 @@ class TikTokApp extends StatelessWidget {
             fontSize: Sizes.size20,
             fontWeight: FontWeight.w900,
           ),
+          centerTitle: true,
         ),
         primaryColor: const Color(0xFFE9435A),
       ),

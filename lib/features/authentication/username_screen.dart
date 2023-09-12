@@ -50,7 +50,6 @@ class _UsernameScreenState extends State<UsernameScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Sign up"),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Sizes.size40),

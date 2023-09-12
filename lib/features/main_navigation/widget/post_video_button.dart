@@ -2,11 +2,13 @@ import 'package:dart_tiktok/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class VideoNavButton extends StatefulWidget {
+  final bool inverted;
   final Function onTap;
 
   const VideoNavButton({
     super.key,
     required this.onTap,
+    required this.inverted,
   });
 
   @override
@@ -90,13 +92,14 @@ class _VideoNavButtonState extends State<VideoNavButton>
                 width: Sizes.size44,
                 height: Sizes.size36,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: widget.inverted ? Colors.black : Colors.white,
                   borderRadius: BorderRadius.circular(Sizes.size10),
                 ),
-                child: const Center(
+                child: Center(
                   child: Text(
                     "+",
                     style: TextStyle(
+                      color: !widget.inverted ? Colors.black : Colors.white,
                       fontSize: Sizes.size28,
                       fontWeight: FontWeight.w600,
                     ),

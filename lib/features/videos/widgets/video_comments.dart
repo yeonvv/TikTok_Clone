@@ -47,7 +47,6 @@ class _VideoCommentsState extends State<VideoComments> {
           appBar: AppBar(
             backgroundColor: Colors.white10,
             title: const Text("22796 comments"),
-            centerTitle: true,
             automaticallyImplyLeading: false,
             actions: [
               IconButton(
