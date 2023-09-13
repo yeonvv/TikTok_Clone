@@ -1,5 +1,6 @@
 import 'package:dart_tiktok/constants/sizes.dart';
 import 'package:dart_tiktok/features/discover/discover_screen.dart';
+import 'package:dart_tiktok/features/indox/indox_screen.dart';
 import 'package:dart_tiktok/features/main_navigation/widget/nav_tab.dart';
 import 'package:dart_tiktok/features/main_navigation/widget/post_video_button.dart';
 import 'package:dart_tiktok/features/videos/video_timeline_screen.dart';
@@ -86,19 +87,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             child: const DiscoverScreen(),
           ),
           Offstage(
-            offstage: _selectedIndex != 2,
-            child: Container(),
-          ),
-          Offstage(
             offstage: _selectedIndex != 3,
-            child: const Center(
-              child: Text(
-                "Inbox",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
+            child: const InboxScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 4,
