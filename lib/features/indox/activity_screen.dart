@@ -29,7 +29,7 @@ class ActivityScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: 1,
               itemBuilder: (context, index) {
                 return ListTile(
                   leading: Container(
@@ -47,8 +47,29 @@ class ActivityScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  title: const Text("Account updates: Upload longer"),
-                  subtitle: const Text("Videos 1h"),
+                  title: RichText(
+                    text: const TextSpan(
+                      text: "Account updates:",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: Sizes.size16,
+                      ),
+                      children: [
+                        TextSpan(
+                            text: " Upload longer",
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                            )),
+                        TextSpan(
+                            text: " 1h",
+                            style: TextStyle(
+                              color: Colors.black26,
+                              fontWeight: FontWeight.normal,
+                            )),
+                      ],
+                    ),
+                  ),
                   trailing: const FaIcon(
                     FontAwesomeIcons.chevronRight,
                     size: Sizes.size16,
